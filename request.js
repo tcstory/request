@@ -64,7 +64,7 @@ function request(opts) {
         } else if (opts.method.toLowerCase() === 'post') {
             if (typeof opts.data !== 'undefined') {
                 request.curConnection++;
-                xhr.send(JSON.parse(opts.data));
+                xhr.send(JSON.stringify(opts.data));
             } else {
                 request.curConnection++;
                 xhr.send(null);
