@@ -58,17 +58,21 @@ function request(opts) {
             opts.contentType = 'application/json';
         }
         xhr.setRequestHeader('Content-Type', opts.contentType);
-        if (opts.method.toLowerCase() === 'get') {
-            request.curConnection++;
-            xhr.send()
-        } else if (opts.method.toLowerCase() === 'post') {
-            if (typeof opts.data !== 'undefined') {
+        switch (opts.method.toLocaleLowerCase()) {
+            case 'get':
+            case 'delete':
                 request.curConnection++;
-                xhr.send(JSON.stringify(opts.data));
-            } else {
-                request.curConnection++;
-                xhr.send(null);
-            }
+                xhr.send();
+                return;
+            case 'post':
+                if (typeof opts.data !== 'undefined') {
+                    request.curConnection++;
+                    xhr.send(JSON.stringify(opts.data));
+                } else {
+                    request.curConnection++;
+                    xhr.send(null);
+                }
+                return;
         }
     }
 }
