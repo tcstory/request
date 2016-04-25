@@ -9,13 +9,13 @@ var app = express();
 app.get('/success', function (req, res) {
     cros(res);
     res.send({
-        x:1
+        x: 1
     })
 });
 app.delete('/success', function (req, res) {
     cros(res);
     res.send({
-        x:1
+        x: 1
     })
 });
 app.get('/error', function (req, res) {
@@ -28,6 +28,13 @@ app.get('/timeout', function (req, res) {
         console.log('timeout');
         res.send('timeout')
     }, 8000)
+});
+
+app.post('/form', function (req, res) {
+    cros(res);
+    res.send({
+        x:1
+    });
 });
 
 app.options('/*?', function (req, res) {
