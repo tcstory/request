@@ -18,13 +18,17 @@ function request(opts) {
             if (typeof opts.success === 'function') {
                 opts.success(response, xhr);
             } else {
-                console.warn('无请求成功回调函数');
+                if (request.debug) {
+                    console.warn('无请求成功回调函数');
+                }
             }
         } else {
             if (typeof opts.error === 'function') {
                 opts.error(xhr);
             } else {
-                console.warn('无请求错误回调函数');
+                if (request.debug) {
+                    console.warn('无请求错误回调函数');
+                }
             }
         }
     };
@@ -63,6 +67,7 @@ function request(opts) {
     }
 }
 
+request.debug = false;
 
 if (typeof module !== 'undefined') {
     module.exports = request;
