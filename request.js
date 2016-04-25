@@ -19,7 +19,7 @@ function request(opts) {
                 opts.success(response, xhr);
             } else {
                 if (request.debug) {
-                    console.warn('[%c' + opts.method + ']%c' + opts.url + ' %c无请求成功回调函数',
+                    console.warn('%c[' + opts.method + ']%c' + opts.url + ' %c无请求成功回调函数',
                         'color: green;', 'color:#03A9F4', 'color:black;');
                 }
             }
@@ -28,7 +28,7 @@ function request(opts) {
                 opts.error(xhr);
             } else {
                 if (request.debug) {
-                    console.warn('[%c' + opts.method + ']%c' + opts.url + ' %c无请求失败回调函数',
+                    console.warn('%c[' + opts.method + ']%c' + opts.url + ' %c无请求失败回调函数',
                         'color: green;', 'color:#03A9F4', 'color:black;');
                 }
             }
@@ -46,7 +46,7 @@ function request(opts) {
         } else {
             xhr.ontimeout = function () {
                 if (request.debug) {
-                    console.warn('[%c' + opts.method + ']%c' + opts.url + ' %c无请求超时回调函数',
+                    console.warn('%c[' + opts.method + ']%c' + opts.url + ' %c无请求超时回调函数',
                         'color: green;', 'color:#03A9F4', 'color:black;');
                 }
             }
@@ -54,7 +54,7 @@ function request(opts) {
     } else {
         xhr.timeout = 5000;
         xhr.ontimeout = function () {
-            console.warn('[%c' + opts.method + ']%c' + opts.url + ' %c无请求超时回调函数',
+            console.warn('%c[' + opts.method + ']%c' + opts.url + ' %c无请求超时回调函数',
                 'color: green;', 'color:#03A9F4', 'color:black;');
         }
     }
@@ -65,21 +65,25 @@ function request(opts) {
             return;
         case 'post':
             if (typeof opts.data !== 'undefined') {
-                if (typeof opts.contentType === 'undefined') {
-                    xhr.setRequestHeader('Content-Type', 'application/json');
-                    xhr.send(JSON.stringify(opts.data));
+                if (opts.data instanceof FormData) {
+                    xhr.send(opts.data);
                 } else {
-                    if (opts.contentType === 'application/x-www-form-urlencoded') {
-                        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                        var str = '';
-                        Object.keys(opts.data).forEach(function (item) {
-                            str += item + '=' + opts.data[item] + '&';
-                        });
-                        str = str.replace(/&$/,'');
-                        xhr.send(str);
-                    } else if (opts.contentType === 'application/json') {
+                    if (typeof opts.contentType === 'undefined') {
                         xhr.setRequestHeader('Content-Type', 'application/json');
                         xhr.send(JSON.stringify(opts.data));
+                    } else {
+                        if (opts.contentType === 'application/x-www-form-urlencoded') {
+                            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                            var str = '';
+                            Object.keys(opts.data).forEach(function (item) {
+                                str += item + '=' + opts.data[item] + '&';
+                            });
+                            str = str.replace(/&$/, '');
+                            xhr.send(str);
+                        } else if (opts.contentType === 'application/json') {
+                            xhr.setRequestHeader('Content-Type', 'application/json');
+                            xhr.send(JSON.stringify(opts.data));
+                        }
                     }
                 }
             } else {
