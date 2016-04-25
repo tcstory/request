@@ -5,7 +5,7 @@
 function request(opts) {
     "use strict";
     if (typeof opts.method === 'undefined') {
-        throw new Error('空的方法');
+        throw new Error('空的method');
     }
     if (typeof opts.url === 'undefined') {
         throw new Error('空的url');
@@ -19,7 +19,7 @@ function request(opts) {
                 opts.success(response, xhr);
             } else {
                 if (request.debug) {
-                    console.warn('无请求成功回调函数');
+                    console.warn('|' + opts.method + ' | ' +opts.url + ' |无请求成功回调函数');
                 }
             }
         } else {
@@ -27,7 +27,7 @@ function request(opts) {
                 opts.error(xhr);
             } else {
                 if (request.debug) {
-                    console.warn('无请求错误回调函数');
+                    console.warn('|' + opts.method + ' | ' +opts.url + ' |无请求失败回调函数');
                 }
             }
         }
@@ -37,15 +37,21 @@ function request(opts) {
             xhr[item] = opts.xhrFields[item];
         })
     }
-    if (typeof opts.timeout !== 'undefined') {
+    if (typeof opts.timeout === 'number') {
         xhr.timeout = opts.timeout;
-        xhr.ontimeout = function () {
-            console.warn('请求' + opts.url + '超时');
+        if (typeof opts.timeoutFunc === 'function') {
+            xhr.ontimeout = opts.timeoutFunc;
+        } else {
+            xhr.ontimeout = function () {
+                if (request.debug) {
+                    console.warn('请求| ' + opts.method + ' | ' +opts.url + ' |超时');
+                }
+            }
         }
     } else {
         xhr.timeout = 5000;
         xhr.ontimeout = function () {
-            console.warn('请求' + opts.url + '超时');
+            console.warn('请求| ' + opts.method + ' | ' +opts.url + ' |超时');
         }
     }
     if (typeof opts.contentType === 'undefined') {
