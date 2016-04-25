@@ -35,6 +35,7 @@ app.post('/form', function (req, res) {
     res.send({
         x:1
     });
+    // res.send('123');
 });
 
 app.options('/*?', function (req, res) {

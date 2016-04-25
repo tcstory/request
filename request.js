@@ -14,8 +14,13 @@ function request(opts) {
     xhr.open(opts.method, opts.url);
     xhr.onload = function () {
         if (xhr.status === 200) {
-            var response = JSON.parse(xhr.responseText);
             if (typeof opts.success === 'function') {
+                var contentType = xhr.getResponseHeader('Content-Type');
+                if (/application\/json/gi.test(contentType)) {
+                    var response = JSON.parse(xhr.responseText);
+                } else {
+                    var response = xhr.responseText;
+                }
                 opts.success(response, xhr);
             } else {
                 if (request.debug) {

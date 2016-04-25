@@ -29,7 +29,10 @@
     request({
         method: 'post',
         url: 'http://localhost:9999/form',
-        data: obj
+        data: obj,
+        success: function (response, xhr) {
+            console.log(response)
+        }
     })
 </script>
 </body>
