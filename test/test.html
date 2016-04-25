@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title></title>
+</head>
+<body>
+<script src="../request.js"></script>
+<script>
+    request.debug = true;
+    request({
+        method: 'get',
+        url: 'http://localhost:9999/timeout'
+    });
+    request({
+        method: 'delete',
+        url: 'http://localhost:9999/success',
+        success: function (response, xhr) {
+            console.log(response);
+        }
+    });
+//    request({
+//        method: 'get',
+//        url: 'http://localhost:9999/error',
+//        error: function (xhr) {
+//            console.log(xhr)
+//        }
+//    })
+</script>
+</body>
+</html>

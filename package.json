@@ -1,0 +1,26 @@
+{
+  "name": "request",
+  "version": "0.0.1",
+  "description": "一个ajax函数",
+  "main": "request.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "express": "^4.13.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tcstory/request.git"
+  },
+  "author": "tcstory",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tcstory/request/issues"
+  },
+  "homepage": "https://github.com/tcstory/request#readme"
+}

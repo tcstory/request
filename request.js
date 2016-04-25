@@ -19,7 +19,8 @@ function request(opts) {
                 opts.success(response, xhr);
             } else {
                 if (request.debug) {
-                    console.warn('|' + opts.method + ' | ' +opts.url + ' |无请求成功回调函数');
+                    console.warn('[%c' + opts.method + ']%c' +opts.url + ' %c无请求成功回调函数',
+                        'color: green;', 'color:#03A9F4', 'color:black;');
                 }
             }
         } else {
@@ -27,7 +28,8 @@ function request(opts) {
                 opts.error(xhr);
             } else {
                 if (request.debug) {
-                    console.warn('|' + opts.method + ' | ' +opts.url + ' |无请求失败回调函数');
+                    console.warn('[%c' + opts.method + ']%c' +opts.url + ' %c无请求失败回调函数',
+                        'color: green;', 'color:#03A9F4', 'color:black;');
                 }
             }
         }
@@ -44,14 +46,16 @@ function request(opts) {
         } else {
             xhr.ontimeout = function () {
                 if (request.debug) {
-                    console.warn('请求| ' + opts.method + ' | ' +opts.url + ' |超时');
+                    console.warn('[%c' + opts.method + ']%c' +opts.url + ' %c无请求超时回调函数',
+                        'color: green;', 'color:#03A9F4', 'color:black;');
                 }
             }
         }
     } else {
         xhr.timeout = 5000;
         xhr.ontimeout = function () {
-            console.warn('请求| ' + opts.method + ' | ' +opts.url + ' |超时');
+            console.warn('[%c' + opts.method + ']%c' +opts.url + ' %c无请求超时回调函数',
+                'color: green;', 'color:#03A9F4', 'color:black;');
         }
     }
     if (typeof opts.contentType === 'undefined') {
