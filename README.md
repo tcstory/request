@@ -19,7 +19,7 @@ request({
 
 ### 参数
 
-`method`: 请求的类型,目前支持`get`和`post`,缺少此参数会**报错**
+`method`: 请求的类型,缺少此参数会**报错**
 
 `url`: 缺少此参数会**报错**
 
@@ -27,13 +27,21 @@ request({
 
 `timeout`: 默认值为**5秒**
 
-`contentType`: 用于设置`post`请求发送的数据类型,目前只支持`json`,默认值为`application/json`
+`contentType`: 用于设置请求发送的数据类型,目前只支持`json`和`FormData`的实例对象,默认值为`application/json`
 
-`data`: `post`请求发送给服务器的数据,**只能**传入一个原生的`Javascript`对象
+`data`: 请求发送给服务器的数据
 
-`success`: 请求成功后执行的回调函数
+`success`: 请求成功后执行的回调函数, 参数为`success(response, xhr)`
 
-`error`: 请求失败后执行的回调函数
+`error`: 请求失败后执行的回调函数, 参数为`error(xhr)`
 
-**补充**: 可以设置当使用`request`函数的时候,能同时发起的最多的网络请求数量
-`request.maxConnection=2`,意味着,如果前两个网络请求没有返回,无法继续再发起网络请求,默认值为`2`
+`timeoutFunc`: 处理请求超时的回调函数, 没有参数
+
+
+**补充**:
+
+1. 带凭证的网络请求, 可以简写为`cross: true`
+2. 目前支持的方法有`get`,`delete`,`post`
+3. 默认情况下,会把请求的结果当做json来处理,如果响应头没有表明结果是`json`,则给回调函数传入`xhr.responseText`
+4. 该库使用`new XMLHttpRequest()`来构造`xhr`对象
+5. 设置`request.debug = true`后,会打印出相关报错信息

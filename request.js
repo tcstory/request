@@ -1,30 +1,26 @@
-/**
- * Created by tcstory on 4/6/16.
- */
-
 function request(opts) {
-    "use strict";
     if (typeof opts.method === 'undefined') {
         throw new Error('空的method');
     }
     if (typeof opts.url === 'undefined') {
         throw new Error('空的url');
     }
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     xhr.open(opts.method, opts.url);
     xhr.onload = function () {
         if (xhr.status === 200) {
             if (typeof opts.success === 'function') {
-                var contentType = xhr.getResponseHeader('Content-Type');
-                if (/application\/json/gi.test(contentType)) {
-                    var response = JSON.parse(xhr.responseText);
+                let contentType = xhr.getResponseHeader('Content-Type');
+                let response;
+                if (/(application\/)?json/gi.test(contentType)) {
+                    response = JSON.parse(xhr.responseText);
                 } else {
-                    var response = xhr.responseText;
+                    response = xhr.responseText;
                 }
                 opts.success(response, xhr);
             } else {
                 if (request.debug) {
-                    console.warn('%c[' + opts.method + ']%c' + opts.url + ' %c无请求成功回调函数',
+                    console.warn(`%c[${opts.method}]%c${opts.url} %c无请求成功回调函数`,
                         'color: green;', 'color:#03A9F4', 'color:black;');
                 }
             }
@@ -33,7 +29,7 @@ function request(opts) {
                 opts.error(xhr);
             } else {
                 if (request.debug) {
-                    console.warn('%c[' + opts.method + ']%c' + opts.url + ' %c无请求失败回调函数',
+                    console.warn(`%c[${opts.method}]%c${opts.url} %c无请求失败回调函数`,
                         'color: green;', 'color:#03A9F4', 'color:black;');
                 }
             }
@@ -44,6 +40,9 @@ function request(opts) {
             xhr[item] = opts.xhrFields[item];
         })
     }
+    if (opts.cross === true) {
+        xhr.withCredentials = true;
+    }
     if (typeof opts.timeout === 'number') {
         xhr.timeout = opts.timeout;
         if (typeof opts.timeoutFunc === 'function') {
@@ -51,7 +50,7 @@ function request(opts) {
         } else {
             xhr.ontimeout = function () {
                 if (request.debug) {
-                    console.warn('%c[' + opts.method + ']%c' + opts.url + ' %c无请求超时回调函数',
+                    console.warn(`%c[${opts.method}]%c${opts.url} %c无请求超时回调函数`,
                         'color: green;', 'color:#03A9F4', 'color:black;');
                 }
             }
@@ -59,7 +58,7 @@ function request(opts) {
     } else {
         xhr.timeout = 5000;
         xhr.ontimeout = function () {
-            console.warn('%c[' + opts.method + ']%c' + opts.url + ' %c无请求超时回调函数',
+            console.warn(`%c[${opts.method}]%c${opts.url} %c无请求超时回调函数`,
                 'color: green;', 'color:#03A9F4', 'color:black;');
         }
     }
@@ -100,6 +99,4 @@ function request(opts) {
 
 request.debug = false;
 
-if (typeof module !== 'undefined') {
-    module.exports = request;
-}
+export default request;
