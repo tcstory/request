@@ -1,23 +1,13 @@
 {
-  "name": "request",
-  "version": "0.0.1",
-  "description": "一个ajax函数",
-  "main": "request.js",
-  "directories": {
-    "test": "test"
-  },
-  "dependencies": {
-    "express": "^4.13.4"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "name": "request-tc",
+  "version": "0.1.0",
+  "description": "一个ajax函数,轻量级,自己封装自食其力",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tcstory/request.git"
   },
-  "author": "tcstory",
+  "author": "tcstory@163.com",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/tcstory/request/issues"
