@@ -15,7 +15,7 @@ function request(opts) {
                 if (/(application\/)?json/gi.test(contentType)) {
                     response = JSON.parse(xhr.responseText);
                 } else {
-                    response = xhr.responseText;
+                    response = xhr.response;
                 }
                 opts.success(response, xhr);
             } else {

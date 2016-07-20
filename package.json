@@ -1,6 +1,6 @@
 {
   "name": "request-tc",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "一个ajax函数,轻量级,自己封装自食其力",
   "main": "dist/index.js",
   "scripts": {
